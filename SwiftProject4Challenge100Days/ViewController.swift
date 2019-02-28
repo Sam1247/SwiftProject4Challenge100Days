@@ -10,7 +10,7 @@ import UIKit
 
 class WebSitesList: UITableViewController {
 
-    var webSites = ["Apple", "Medium", "Facebook", "Youtube", "Twitter", "Linkedin"]
+    var webSites = ["Google", "Apple", "Medium", "Facebook", "Youtube", "Twitter", "LinkedIn"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,9 @@ class WebSitesList: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WebSite", for: indexPath)
         cell.textLabel?.text = webSites[indexPath.row]
+        cell.imageView?.image = UIImage(named: webSites[indexPath.row])!
+        cell.layer.cornerRadius = 5
+        cell.clipsToBounds = true
         return cell
     }
 
@@ -34,5 +37,10 @@ class WebSitesList: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
+    }
+    
 }
 

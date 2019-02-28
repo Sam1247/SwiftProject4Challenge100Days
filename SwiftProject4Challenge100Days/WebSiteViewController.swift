@@ -14,6 +14,7 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
     var nameToWebSite = ["Apple"   : "apple.com",
+                         "Google"  : "google.com",
                          "Medium"  : "Medium.com",
                          "Facebook": "facebook.com",
                          "Youtube" : "youtube.com",
@@ -41,8 +42,8 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let progressButton = UIBarButtonItem(customView: progressView)
-        let backButton = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(back))
-        let forwardbutton = UIBarButtonItem(title: "forward", style: .plain, target: self, action: #selector(forward))
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
+        let forwardbutton = UIBarButtonItem(title: "Forward", style: .plain, target: self, action: #selector(forward))
         let spacerLeft = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let spacerRight = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbarItems = [backButton, spacerLeft, progressButton, spacerRight, forwardbutton]
@@ -64,7 +65,7 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
         webView.reload()
     }
     
-    @objc func back () {
+    @objc func back (action: UIAlertAction! = nil) {
         webView.goBack()
     }
     
@@ -93,7 +94,9 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         }
-        
+        let ACShowScore =  UIAlertController(title: "Waring", message: "this website is blocked", preferredStyle: .alert)
+        ACShowScore.addAction(UIAlertAction(title: "cancel", style: .default, handler: back))
+        present(ACShowScore, animated: true)
         decisionHandler(.cancel)
     }
     
