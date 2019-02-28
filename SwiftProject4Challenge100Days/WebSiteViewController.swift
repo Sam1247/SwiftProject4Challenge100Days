@@ -31,14 +31,20 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
         //
         let url = URL(string: "https://www." + nameToWebSite[webSite]!)!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         navigationController?.isToolbarHidden = false
+        // progress button
+        progressView = UIProgressView(progressViewStyle: .default)
+        progressView.sizeToFit()
+        let progressButton = UIBarButtonItem(customView: progressView)
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
-        toolbarItems = [spacer]
+        toolbarItems = [spacer, progressButton]
+        //
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,4 +61,13 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
         webView.reload()
     }
     
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        title = webView.title
+    }
+    // progress bar observering func
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            progressView.progress = Float(webView.estimatedProgress)
+        }
+    }
 }
