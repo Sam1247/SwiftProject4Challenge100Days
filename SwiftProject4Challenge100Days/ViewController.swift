@@ -10,10 +10,23 @@ import UIKit
 
 class WebSitesList: UITableViewController {
 
+    var webSites = ["Google", "Medium", "Facebook", "Youtube", "Twitter", "Linkedin"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Fast Browser"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return webSites.count
     }
 
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WebSite", for: indexPath)
+        cell.textLabel?.text = webSites[indexPath.row]
+        return cell
+    }
 
 }
 
