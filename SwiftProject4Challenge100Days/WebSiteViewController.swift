@@ -41,8 +41,11 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let progressButton = UIBarButtonItem(customView: progressView)
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbarItems = [spacer, progressButton]
+        let backButton = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(back))
+        let forwardbutton = UIBarButtonItem(title: "forward", style: .plain, target: self, action: #selector(forward))
+        let spacerLeft = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let spacerRight = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbarItems = [backButton, spacerLeft, progressButton, spacerRight, forwardbutton]
         //
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
@@ -61,6 +64,14 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
         webView.reload()
     }
     
+    @objc func back () {
+        webView.goBack()
+    }
+    
+    @objc func forward () {
+        webView.goForward()
+    }
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
     }
@@ -70,4 +81,5 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
             progressView.progress = Float(webView.estimatedProgress)
         }
     }
+    
 }
