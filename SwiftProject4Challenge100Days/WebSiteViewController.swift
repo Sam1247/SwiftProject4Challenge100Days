@@ -21,7 +21,7 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
                          "Linkedin": "linkedin.com"
                         ]
     var webSite: String!
-
+    
     override func loadView() {
         webView = WKWebView()
         webView.navigationDelegate = self
@@ -36,6 +36,9 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         navigationController?.isToolbarHidden = false
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
+        toolbarItems = [spacer]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +49,10 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
+    }
+    
+    @objc func refresh () {
+        webView.reload()
     }
     
 }
