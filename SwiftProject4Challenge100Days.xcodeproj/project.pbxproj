@@ -58,11 +58,11 @@
 			children = (
 				20B640ED2227FCC90053C993 /* AppDelegate.swift */,
 				20B640EF2227FCC90053C993 /* ViewController.swift */,
+				20943533222818FD0012FCE0 /* WebSiteViewController.swift */,
 				20B640F12227FCC90053C993 /* Main.storyboard */,
 				20B640F42227FCCB0053C993 /* Assets.xcassets */,
 				20B640F62227FCCB0053C993 /* LaunchScreen.storyboard */,
 				20B640F92227FCCB0053C993 /* Info.plist */,
-				20943533222818FD0012FCE0 /* WebSiteViewController.swift */,
 			);
 			path = SwiftProject4Challenge100Days;
 			sourceTree = "<group>";

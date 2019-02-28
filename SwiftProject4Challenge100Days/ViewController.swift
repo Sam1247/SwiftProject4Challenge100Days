@@ -10,7 +10,7 @@ import UIKit
 
 class WebSitesList: UITableViewController {
 
-    var webSites = ["Google", "Medium", "Facebook", "Youtube", "Twitter", "Linkedin"]
+    var webSites = ["Apple", "Medium", "Facebook", "Youtube", "Twitter", "Linkedin"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,7 @@ class WebSitesList: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "WebLoader") as? WebSiteViewController {
+            vc.webSite = webSites[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
         }
     }
