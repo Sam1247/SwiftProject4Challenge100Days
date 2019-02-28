@@ -82,4 +82,19 @@ class WebSiteViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.url
+        
+        if let host  = url?.host {
+            for webSite in nameToWebSite.values {
+                if host.contains(webSite) {
+                    decisionHandler(.allow)
+                    return
+                }
+            }
+        }
+        
+        decisionHandler(.cancel)
+    }
+    
 }
